@@ -42,8 +42,9 @@ This repo contains guidelines for getting `Themis Finals` up and running.
 2. Get [themis-finals-infrastructure](https://github.com/aspyatkin/themis-finals-infrastructure)  
 
         $ mkdir ~/Documents/projects/whatever
+        $ cd ~/Documents/projects/whatever
         $ git clone https://github.com/aspyatkin/themis-finals-infrastructure
-        $ cd ~/Documents/projects/whatever/themis-finals-infrastructure
+        $ cd themis-finals-infrastructure
 
 3. Install dependencies  
 `$ bundle`  
