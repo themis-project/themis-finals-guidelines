@@ -51,3 +51,42 @@ This repo contains guidelines for getting `Themis Finals` up and running.
 *Note:* You might need to run rbenv rehash after running command if Ruby binaries are managed by rbenv (installed dependency `librarian-chef` exposes a shell utility).
 4. Install cookbooks  
 `$ librarian-chef install`
+5. Create attributes file (for Chef)  
+`$ cp nodes/vagrant.json.example nodes/vagrant.json`  
+*Note:* You can overwrite attributes by modifying `nodes/vagrant.json` file. This file is ignored in Git so you can be sure that you won't break anything.
+6. Create virtual machine attributes file (for Vagrant)  
+`$ cp opts.yml.example opts.yml`  
+*Note:* Virtual machine managed by Vagrant needs to have 2 network interfaces enabled. First is NAT interface - this is for Vagrant which will be managing the instance with SSH. Second is bridge interface. To make bridge interface work, you should specify (in `opts.yml`) an IP address (outside of your router's DHCP range, otherwise it might not work) and your network adapter's name (Non-latin names might not work, that's Vagrant issue).
+7. Create and provision virtual machine  
+`$ vagrant up`  
+*Note:* For the first time, it will take a while, because Vagrant will download a base Ubuntu box and after that it will install some software including Git, Ruby, PostgreSQL and so on.
+
+## Managing infrastructure (for virtualized environment)
+You can always check virtual machine state by launching VirtualBox GUI but **do not** manage virtual machine with VirtualBox GUI. It's Vagrant duty.
+
+First, change directory to the one you've cloned while creating infrastructure:
+`cd ~/Documents/projects/whatever/themis-finals-infrastructure`
+
+### Checking machine state
+`$ vagrant status`
+### Launching (on powered off/suspended machine)
+`$ vagrant up`
+### Powering off (on running machine)
+`$ vagrant halt`
+### Suspending (on running machine)
+`$ vagrant suspend`
+*Note:* This command 'freezes' the machine state without powering it off. This can speed up instance startup.
+### Resuming (on suspended machine)
+`$ vagrant up` or `$ vagrant resume`
+*Note:* This command resumes that machine that was previously suspended.
+### Provisioning (on running machine)
+`$ vagrant provision`
+*Note:* This command launches Chef to update machine configuration. If you have updated `themis-finals-infrastructure` repository or changed something in `nodes/vagrant.json` file you should definitely provision the machine again.
+### Reloading (on running machine)
+`$ vagrant reload`
+*Note:* You should run this command if you have updated something in `opts.yml` file.
+### Destroying (on any state)
+`$ vagrant destroy`
+*Note:* This command will remove VirtualBox virtual machine.
+### Additional information
+For more information on aforementioned commands, please proceed to [Vagrant documentation](https://docs.vagrantup.com/v2/).
