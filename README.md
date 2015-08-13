@@ -74,19 +74,19 @@ First, change directory to the one you've cloned while creating infrastructure:
 ### Powering off (on running machine)
 `$ vagrant halt`
 ### Suspending (on running machine)
-`$ vagrant suspend`
+`$ vagrant suspend`  
 *Note:* This command 'freezes' the machine state without powering it off. This can speed up instance startup.
 ### Resuming (on suspended machine)
-`$ vagrant up` or `$ vagrant resume`
+`$ vagrant up` or `$ vagrant resume`  
 *Note:* This command resumes that machine that was previously suspended.
 ### Provisioning (on running machine)
-`$ vagrant provision`
+`$ vagrant provision`  
 *Note:* This command launches Chef to update machine configuration. If you have updated `themis-finals-infrastructure` repository or changed something in `nodes/vagrant.json` file you should definitely provision the machine again.
 ### Reloading (on running machine)
-`$ vagrant reload`
+`$ vagrant reload`  
 *Note:* You should run this command if you have updated something in `opts.yml` file.
 ### Destroying (on any state)
-`$ vagrant destroy`
+`$ vagrant destroy`  
 *Note:* This command will remove VirtualBox virtual machine.
 ### Additional information
 For more information on aforementioned commands, please proceed to [Vagrant documentation](https://docs.vagrantup.com/v2/).
