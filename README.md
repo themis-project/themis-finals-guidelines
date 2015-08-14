@@ -1,4 +1,5 @@
 # Themis Finals Guidelines
+This document is also available in [Russian language](README_RU.md).
 ## QA section
 ### What is `Themis Finals`?
 `Themis Finals` is a CTF contest checking system for [VolgaCTF Finals](http://volgactf.ru) contest.
@@ -12,7 +13,7 @@ This repo contains guidelines for getting `Themis Finals` up and running.
 ## Related repos
 `Themis Finals` consists of several repositories:
 - [themis-finals-infrastructure](https://github.com/aspyatkin/themis-finals-infrastructure) - Chef Solo configuration to provision virtual machine or bare metal server.
-- [themis-finals](https://github.com/aspyatkin/themis-finals) - Main repository of the project, contains checking system backends (Ruby) as well as frontend (JavaScript ES6).
+- [themis-finals](https://github.com/aspyatkin/themis-finals) - Main repository of the project, contains checking system backends (Ruby) as well as frontend (JavaScript ECMA-262).
 - [themis-checker-server](https://github.com/aspyatkin/themis-checker-server) - Tools to create service checker (Ruby).
 - [themis-checker-result](https://github.com/aspyatkin/themis-checker-result) - Service checker result status codes (Ruby).
 - [themis-checker-py](https://github.com/aspyatkin/themis-checker-py) - Tools to create service checker (Python).
@@ -48,7 +49,7 @@ This repo contains guidelines for getting `Themis Finals` up and running.
 
 3. Install dependencies  
 `$ bundle`  
-*Note:* You might need to run rbenv rehash after running command if Ruby binaries are managed by rbenv (installed dependency `librarian-chef` exposes a shell utility).
+*Note:* You might need to run `rbenv rehash` after running command if Ruby binaries are managed by `rbenv` (installed dependency `librarian-chef` exposes a shell utility).
 4. Install cookbooks  
 `$ librarian-chef install`
 5. Create attributes file (for Chef)  
@@ -78,7 +79,7 @@ First, change directory to the one you've cloned while creating infrastructure:
 *Note:* This command 'freezes' the machine state without powering it off. This can speed up instance startup.
 ### Resuming (on suspended machine)
 `$ vagrant up` or `$ vagrant resume`  
-*Note:* This command resumes that machine that was previously suspended.
+*Note:* This command resumes the machine that was previously suspended.
 ### Provisioning (on running machine)
 `$ vagrant provision`  
 *Note:* This command launches Chef to update machine configuration. If you have updated `themis-finals-infrastructure` repository or changed something in `nodes/vagrant.json` file you should definitely provision the machine again.
@@ -90,3 +91,5 @@ First, change directory to the one you've cloned while creating infrastructure:
 *Note:* This command will remove VirtualBox virtual machine.
 ### Additional information
 For more information on aforementioned commands, please proceed to [Vagrant documentation](https://docs.vagrantup.com/v2/).
+## License
+MIT @ [Alexander Pyatkin](https://github.com/aspyatkin)
