@@ -26,39 +26,31 @@ This repo contains guidelines for getting `Themis Finals` up and running.
 1. Git
 2. [VirtualBox 5.0](https://www.virtualbox.org/wiki/Downloads)
 3. [Vagrant 1.7.4](https://www.vagrantup.com/downloads.html)
-4. Ruby 2.2.2 - better with [rbenv](https://github.com/sstephenson/rbenv) and [ruby-build](https://github.com/sstephenson/ruby-build)
-5. *for Windows hosts* unix shell. You might want to try bare [Cygwin](http://cygwin.org/) or [Babun](http://babun.github.io/) (Ruby can be installed with Babun's `pact`).
-6. Enough computational resources and disk space to get 2-3 virtual machines run simultaneously.
+4. *[for Windows hosts]* unix shell. You might want to try bare [Cygwin](http://cygwin.org/) or [Babun](http://babun.github.io/).
+5. Enough computational resources and disk space to get 2-3 virtual machines run simultaneously.
 
 ### Check prerequisites
-1. `vagrant version` should report something like `Installed version: 1.7.4`.
-2. `ruby -v` should report something like `ruby2.2.2p95`.
+`vagrant version` should report something like `Installed version: 1.7.4`.
 
 ### Creating infrastructure
 **Note:** `$` indicates nothing more that a shell prompt.
 
-1. Install [Bundler](https://github.com/bundler/bundler)  
-`$ gem install bundler`  
-*Note:* You might need to run `rbenv rehash` after installation if Ruby binaries are managed by `rbenv` (installed dependency `bundler` exposes a shell utility).
-2. Get [themis-finals-infrastructure](https://github.com/aspyatkin/themis-finals-infrastructure)  
+1. Get [themis-finals-infrastructure](https://github.com/aspyatkin/themis-finals-infrastructure)  
 
         $ mkdir ~/Documents/projects/whatever
         $ cd ~/Documents/projects/whatever
         $ git clone https://github.com/aspyatkin/themis-finals-infrastructure
         $ cd themis-finals-infrastructure
 
-3. Install dependencies  
-`$ bundle`  
-*Note:* You might need to run `rbenv rehash` after running command if Ruby binaries are managed by `rbenv` (installed dependency `librarian-chef` exposes a shell utility).
-4. Install cookbooks  
-`$ librarian-chef install`
-5. Create attributes file (for Chef)  
+2. Install librarian-chef plugin for Vagrant  
+`$ vagrant plugin install vagrant-librarian-chef`
+3. Create attributes file (for Chef)  
 `$ cp nodes/vagrant.json.example nodes/vagrant.json`  
 *Note:* You can overwrite attributes by modifying `nodes/vagrant.json` file. This file is ignored in Git so you can be sure that you won't break anything.
-6. Create virtual machine attributes file (for Vagrant)  
+4. Create virtual machine attributes file (for Vagrant)  
 `$ cp opts.yml.example opts.yml`  
 *Note:* Virtual machine managed by Vagrant needs to have 2 network interfaces enabled. First is NAT interface - this is for Vagrant which will be managing the instance with SSH. Second is bridge interface. To make bridge interface work, you should specify (in `opts.yml`) an IP address (outside of your router's DHCP range, otherwise it might not work) and your network adapter's name (Non-latin names might not work, that's Vagrant issue).
-7. Create and provision virtual machine  
+5. Create and provision virtual machine  
 `$ vagrant up`  
 *Note:* For the first time, it will take a while, because Vagrant will download a base Ubuntu box and after that it will install some software including Git, Ruby, PostgreSQL and so on.
 

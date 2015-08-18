@@ -26,39 +26,31 @@
 1. Git
 2. [VirtualBox 5.0](https://www.virtualbox.org/wiki/Downloads)
 3. [Vagrant 1.7.4](https://www.vagrantup.com/downloads.html)
-4. Ruby 2.2.2 - предпочтительней установка [rbenv](https://github.com/sstephenson/rbenv) и [ruby-build](https://github.com/sstephenson/ruby-build)
-5. *для Windows машин* командная строка unix. Вам может понадобиться [Cygwin](http://cygwin.org/) или [Babun](http://babun.github.io/) (Ruby может быть установлен с помощью утилиты `pact`, входящей в состав Babun).
-6. Наличие достаточного количества вычислительных ресурсов и места на диске, для того чтобы можно было одновременно запустить 2-3 виртуальных машины.
+4. *[для Windows машин]* командная строка unix. Вам может понадобиться [Cygwin](http://cygwin.org/) или [Babun](http://babun.github.io/).
+5. Наличие достаточного количества вычислительных ресурсов и места на диске, для того чтобы можно было одновременно запустить 2-3 виртуальных машины.
 
 ### Проверка предварительных требований
-1. `vagrant version` должно выводить что-то похожее на `Installed version: 1.7.4`.
-2. `ruby -v` должно выводить что-то похожее на `ruby2.2.2p95`.
+`vagrant version` должно выводить что-то похожее на `Installed version: 1.7.4`.
 
 ### Создание инфраструктуры
 **Примечание:** `$` обозначает приглашение ввода в приложении командной строки.
 
-1. Установите [Bundler](https://github.com/bundler/bundler)  
-`$ gem install bundler`  
-*Примечание:* Вам может потребоваться выполнить `rbenv rehash` после установки если Ruby установлен через `rbenv` (утилита `bundler` содержит программы командной строки).
-2. Получите [themis-finals-infrastructure](https://github.com/aspyatkin/themis-finals-infrastructure)  
+1. Получите [themis-finals-infrastructure](https://github.com/aspyatkin/themis-finals-infrastructure)  
 
         $ mkdir ~/Documents/projects/whatever
         $ cd ~/Documents/projects/whatever
         $ git clone https://github.com/aspyatkin/themis-finals-infrastructure
         $ cd themis-finals-infrastructure
 
-3. Установите зависимости  
-`$ bundle`  
-*Примечание:* Вам может понадобиться выполнить `rbenv rehash` после установки, если Ruby установлен через `rbenv` (утилита `librarian-chef` содержит программы командной строки).
-4. Установите дополнительные модули  
-`$ librarian-chef install`
-5. Создайте файл атрибутов (для Chef)  
+2. Установите плагин librarian-chef для Vagrant  
+`$ vagrant plugin install vagrant-librarian-chef`
+3. Создайте файл атрибутов (для Chef)  
 `$ cp nodes/vagrant.json.example nodes/vagrant.json`  
 *Примечание:* Вы можете устанавливать атрибуты в файле `nodes/vagrant.json`. Этот файл будет игнорироваться системой контроля версий Git, поэтому будьте уверены, что изменяя его, вы ничего не поломаете.
-6. Создайте файл атрибутов виртуальной машины (для Vagrant)  
+4. Создайте файл атрибутов виртуальной машины (для Vagrant)  
 `$ cp opts.yml.example opts.yml`  
 *Примечание:* Виртуальная машина, создаваемая Vagrant, должна иметь два сетевых интерфейса. Первый интерфейс NAT - требуется Vagrant'у для доступа к машине по SSH. Второй интерфейс типа мост. Чтобы он заработал, вам необходимо указать (в `opts.yml`) свободный IP адрес (вне диапазона DHCP вашего роутера, иначе может не заработать) и полное название вашего сетевого адаптера (название, содержащие не латинские символы, не работают, это проблема Vagrant).
-7. Создайте и разверните инфраструктуру на виртуальной машине   
+5. Создайте и разверните инфраструктуру на виртуальной машине   
 `$ vagrant up`  
 *Примечание:* Первый раз выполнение этой команды займёт достаточно много времени, поскольку Vagrant загрузит базовый образ Ubuntu и после этого установит необходимое ПО, включая  Git, Ruby, PostgreSQL и другие программы.
 
