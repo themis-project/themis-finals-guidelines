@@ -26,7 +26,7 @@ This repo contains guidelines for getting `Themis Finals` up and running.
 1. Git
 2. [VirtualBox 5.0](https://www.virtualbox.org/wiki/Downloads)
 3. [Vagrant 1.7.4](https://www.vagrantup.com/downloads.html)
-4. *[for Windows hosts]* unix shell. You might want to try bare [Cygwin](http://cygwin.org/) or [Babun](http://babun.github.io/).
+4. *[for Windows hosts]* unix shell. You may try [Cygwin](http://cygwin.org/) or [Babun](http://babun.github.io/).
 5. Enough computational resources and disk space to get 2-3 virtual machines run simultaneously.
 
 ### Check prerequisites
@@ -49,7 +49,7 @@ This repo contains guidelines for getting `Themis Finals` up and running.
 *Note:* You can overwrite attributes by modifying `nodes/vagrant.json` file. This file is ignored in Git so you can be sure that you won't break anything.
 4. Create virtual machine attributes file (for Vagrant)  
 `$ cp opts.yml.example opts.yml`  
-*Note:* Virtual machine managed by Vagrant needs to have 2 network interfaces enabled. First is NAT interface - this is for Vagrant which will be managing the instance with SSH. Second is bridge interface. To make bridge interface work, you should specify (in `opts.yml`) an IP address (outside of your router's DHCP range, otherwise it might not work) and your network adapter's name (Non-latin names might not work, that's Vagrant issue).
+*Note:* Virtual machine managed by Vagrant needs to have 2 network interfaces enabled. First is NAT interface - this is for Vagrant which will be managing the instance with SSH. Second is bridge interface. To make bridge interface work, you should specify (in `opts.yml`) an IP address (outside of your router's DHCP range, otherwise it might not work) and your network adapter's name (non-latin names might not work, that's Vagrant issue). Instead of bridge interface, you may try host-only networking (see [Vagrant documentation](https://docs.vagrantup.com/v2/networking/private_network.html) for more info).
 5. Create and provision virtual machine  
 `$ vagrant up`  
 *Note:* For the first time, it will take a while, because Vagrant will download a base Ubuntu box and after that it will install some software including Git, Ruby, PostgreSQL and so on.
@@ -90,16 +90,48 @@ $ cd ~/Documents/projects/whatever/themis-finals-infrastructure
 $ vagrant ssh
 ```
 Now you have SSH connection to the machine. To edit the files on the VM, you can use SFTP, shared folders, whatever you like most.
-### Configuration
-1. Create configuration file
 
-        $ cd /var/themis/finals
-        $ cp config.rb.example config.rb
+### Configuration file
+Create configuration file
+```
+$ cd /var/themis/finals
+$ cp config.rb.example config.rb
+```
+All system settings are stored in `config.rb` file, including network options, teams and services data.
 
-2. Change configuration file (e.g. with Vim)
-You should definitely check network addresses, teams and services data in `/var/themis/finals/config.rb`.
-3. Write your service's checker
-There are examples in `/var/themis/sample-checker-rb` and `/var/themis/sample-checker-py`. Checker will be launched with process manager [God](https://github.com/mojombo/god), so you should provide a configuration file in `/var/themis/finals/god.d` (check out samples `sample-checker-py.god` and `sample-checker-rb.god` in that directory).
+You should specify a host machine's IP address in `network` section. For instance,
+``` ruby
+network do
+    internal '10.0.0.0/24'
+    # other settings
+end
+```
+
+Each team is described in its own section. There should be specified a team alias (for internal use), team name, subnetwork address and game machine's address. For instance,
+``` ruby
+team 'team_1' do
+    name 'Team #1'
+    network '10.0.1.0/24'
+    host '10.0.1.3'
+end
+```
+
+Each service is described in its own section. There should be specified a service alias (for internal use) along with service name. For instance,
+``` ruby
+service 'service_1' do
+    name 'Service #1'
+end
+```
+
+### Service checker
+Service checker should be concluded in a separate subfolder in `/var/themis` folder. You can check out the examples in `/var/themis/sample-checker-rb` and `/var/themis/sample-checker-py`.
+
+Service checker is launched with process manager [God](https://github.com/mojombo/god), so you should provide a configuration file in `/var/themis/finals/god.d` (check out samples `sample-checker-py.god` and `sample-checker-rb.god` in that directory). You should specify program's run command, working directory, log file paths and several internal options::
+1. `TUBE_LISTEN` - `themis.service.SERVICE_ALIAS.listen`,
+2. `TUBE_REPORT` - `themis.service.SERVICE_ALIAS.report`,
+where `SERVICE_ALIAS` stands for service alias, which you've specified in `config.rb` file.
+
+Instead of deploying this stuff manually, you can write a Chef cookbook to automate deployment.
 
 ### Management
 There are some command line tools to manage the contest.
