@@ -126,9 +126,9 @@ end
 ### Service checker
 Service checker should be concluded in a separate subfolder in `/var/themis` folder. You can check out the examples in `/var/themis/sample-checker-rb` and `/var/themis/sample-checker-py`.
 
-Service checker is launched with process manager [God](https://github.com/mojombo/god), so you should provide a configuration file in `/var/themis/finals/god.d` (check out samples `sample-checker-py.god` and `sample-checker-rb.god` in that directory). You should specify program's run command, working directory, log file paths and several internal options::
-1. `TUBE_LISTEN` - `themis.service.SERVICE_ALIAS.listen`,
-2. `TUBE_REPORT` - `themis.service.SERVICE_ALIAS.report`,
+Service checker is launched with process manager [God](https://github.com/mojombo/god), so you should provide a configuration file in `/var/themis/finals/god.d` (check out samples `sample-checker-py.god` and `sample-checker-rb.god` in that directory). You should specify program's run command, working directory, log file paths and several internal options:  
+1. `TUBE_LISTEN` - `themis.service.SERVICE_ALIAS.listen`,  
+2. `TUBE_REPORT` - `themis.service.SERVICE_ALIAS.report`,  
 where `SERVICE_ALIAS` stands for service alias, which you've specified in `config.rb` file.
 
 Instead of deploying this stuff manually, you can write a Chef cookbook to automate deployment.
