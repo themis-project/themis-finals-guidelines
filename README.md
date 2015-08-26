@@ -152,11 +152,12 @@ $ sudo -s
 $
 ```
 
-#### Start contest
+#### Schedule start contest
 ```
 $ cd /var/themis/finals
-$ bundle exec rake contest:start
+$ bundle exec rake contest:start_async
 ```
+This command does not start contest immediately. Contest will be started automatically when the first flags will have become created.
 Assuming virtual machine has an IP address `192.168.163.150`, you can navigate to `http://192.168.163.150/` in your browser to see system's frontend.
 
 #### Pause contest
@@ -171,7 +172,7 @@ $ cd /var/themis/finals
 $ bundle exec rake contest:resume
 ```
 
-#### Complete contest
+#### Schedule complete contest
 ```
 $ cd /var/themis/finals
 $ bundle exec rake contest:complete_async
