@@ -2,24 +2,13 @@
 Данный документ также доступен на [английском языке](README.md).
 ## Вопрос-Ответ
 ### Что такое `Themis Finals`?
-`Themis Finals` - это проверяющая система для организации финального раунда соревнования [VolgaCTF](http://volgactf.ru).
+`Themis Finals` - это проверяющая система для организации финального раунда соревнований формата CTF.
 
 ### Что находится в этом репозитории?
 В данном репозитории содержатся указания по приведению системы `Themis Finals` в рабочее состояние.
 
 ## Проект Themis
 `Themis Finals` - это часть проекта `Themis`. Цель проекта - создание комплекта инструментов для организации соревнований CTF (отборочный и финальный раунды).
-
-## Связанные репозитории
-`Themis Finals` содержит несколько репозиториев:
-- [themis-finals-infrastructure](https://github.com/aspyatkin/themis-finals-infrastructure) - Конфигурация Chef Solo для развёртывания виртуальной машины или реального сервера.
-- [themis-finals](https://github.com/aspyatkin/themis-finals) - Основной репозиторий проекта, содержит бэкэнд (Ruby) и фронтэнд (JavaScript ECMA-262) системы.
-- [themis-checker-server](https://github.com/aspyatkin/themis-checker-server) - Утилиты для создания программ проверки состояния сервиса (Ruby).
-- [themis-checker-result](https://github.com/aspyatkin/themis-checker-result) - Коды статуса для программ проверки состояния сервиса (Ruby).
-- [themis-checker-py](https://github.com/aspyatkin/themis-checker-py) - Утилиты для создания программ проверки состояния сервиса (Python).
-- [themis-attack-result](https://github.com/aspyatkin/themis-attack-result) - Коды статуса результата атак (Ruby).
-- [themis-sample-checker-rb](https://github.com/aspyatkin/themis-sample-checker-rb) - Пример программы проверки состояния сервиса на Ruby.
-- [themis-sample-checker-py](https://github.com/aspyatkin/themis-sample-checker-py) - Пример программы проверки состояния сервиса на Python.
 
 ## Установка (для виртуализованного окружения)
 ### Предварительные требования (основная машина)
@@ -214,18 +203,21 @@ $ cp opts.yml.example opts.yml
 $ vim opts.yml  // specify IP address and network adapter's name
 $ vagrant up
 ```
-Vagrant запустит виртуальную машину с Ubuntu Desktop. В этой виртуальной машине вы можете использовать `curl`, чтобы выполнить атаку. Полагая, что IP адрес проверяющей системы `192.168.163.150`:
-```
-$ curl -X POST -v -H "Content-Type: application/json" http://192.168.163.150/api/submit -d "[\"FLAG_HERE\"]"
-```
-На вход подаются данные в формате JSON, ответ приходит тоже в формате JSON. Чтобы узнать о кодах результата атаки, обратитесь к репозиторию [themis-attack-result](https://github.com/aspyatkin/themis-attack-result).
+Vagrant запустит виртуальную машину с Ubuntu Desktop. В этой виртуальной машине вы можете сдавать флаги несколькими способами. Обратитесь к [themis-attack-protocol](https://github.com/aspyatkin/themis-attack-protocol) и [themis-attack-py](https://github.com/aspyatkin/themis-attack-py) для получения дополнительной информации.
 
 ### Подсказки
 1. IP адрес основной машины должны быть прописана как `internal network` в `config.rb`.
 2. Для того, чтобы узнать флаги в системе, можно просматривать логи в `/var/themis/finals/logs/queue.log`.
 
-### Примечания
-Если вы дочитали до этого места, то вы вероятно уже знаете, что работа над системой еще не завершена.
+## Смотрите также
+- [themis-finals](https://github.com/aspyatkin/themis-finals)
+- [themis-finals-infrastructure](https://github.com/aspyatkin/themis-finals-infrastructure)
+- [themis-attack-protocol](https://github.com/aspyatkin/themis-attack-protocol)
+- [themis-attack-py](https://github.com/aspyatkin/themis-attack-py)
+- [themis-attack-result](https://github.com/aspyatkin/themis-attack-result)
+- [themis-checker-server](https://github.com/aspyatkin/themis-checker-server)
+- [themis-checker-result](https://github.com/aspyatkin/themis-checker-result)
+- [themis-checker-py](https://github.com/aspyatkin/themis-checker-py)
 
 ## Лицензия
 MIT @ [Пяткин Александр](https://github.com/aspyatkin)

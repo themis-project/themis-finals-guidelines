@@ -2,24 +2,13 @@
 This document is also available in [Russian language](README_RU.md), but it may be incomplete.
 ## QA section
 ### What is `Themis Finals`?
-`Themis Finals` is a CTF contest checking system for [VolgaCTF Finals](http://volgactf.ru) contest.
+`Themis Finals` is a CTF contest checking system.
 
 ### What's this repo all about?
 This repo contains guidelines for getting `Themis Finals` up and running.
 
 ## Themis project
 `Themis Finals` is a part of a project called `Themis`. Its purpose is to develop an entire toolset for organizing CTFs (quals and finals rounds).
-
-## Related repos
-`Themis Finals` consists of several repositories:
-- [themis-finals-infrastructure](https://github.com/aspyatkin/themis-finals-infrastructure) - Chef Solo configuration to provision virtual machine or bare metal server.
-- [themis-finals](https://github.com/aspyatkin/themis-finals) - Main repository of the project, contains checking system backends (Ruby) as well as frontend (JavaScript ECMA-262).
-- [themis-checker-server](https://github.com/aspyatkin/themis-checker-server) - Tools to create service checker (Ruby).
-- [themis-checker-result](https://github.com/aspyatkin/themis-checker-result) - Service checker result status codes (Ruby).
-- [themis-checker-py](https://github.com/aspyatkin/themis-checker-py) - Tools to create service checker (Python).
-- [themis-attack-result](https://github.com/aspyatkin/themis-attack-result) - Attack result status codes (Ruby).
-- [themis-sample-checker-rb](https://github.com/aspyatkin/themis-sample-checker-rb) - Sample checker written in Ruby.
-- [themis-sample-checker-py](https://github.com/aspyatkin/themis-sample-checker-py) - Sample checker written in Python.
 
 ## Installation (for virtualized environment)
 ### Prerequisites (host machine)
@@ -215,18 +204,21 @@ $ cp opts.yml.example opts.yml
 $ vim opts.yml  // specify IP address and network adapter's name
 $ vagrant up
 ```
-Vagrant will launch an Ubuntu Desktop instance. Inside a team's machine, you can use `curl` to perform an attack. Assuming `192.168.163.150` is checker system's IP address:
-```
-$ curl -X POST -v -H "Content-Type: application/json" http://192.168.163.150/api/submit -d "[\"FLAG_HERE\"]"
-```
-Input is in JSON format, output is in the same JSON format. To discover available result codes, refer to [themis-attack-result](https://github.com/aspyatkin/themis-attack-result) repository.
+Vagrant will launch an Ubuntu Desktop instance. Inside a team's machine, you can use several options to perform an attack. Please refer to [themis-attack-protocol](https://github.com/aspyatkin/themis-attack-protocol) and [themis-attack-py](https://github.com/aspyatkin/themis-attack-py) to discover them.
 
 ### Tips
 1. Treat your host machine as `internal network` in `config.rb`.
 2. To find out some flags to test attacks, open `/var/themis/finals/logs/queue.log`.
 
-### Notes
-If you have reached this paragraph, you obviously know that frontend system is not finished yet.
+## See also
+- [themis-finals](https://github.com/aspyatkin/themis-finals)
+- [themis-finals-infrastructure](https://github.com/aspyatkin/themis-finals-infrastructure)
+- [themis-attack-protocol](https://github.com/aspyatkin/themis-attack-protocol)
+- [themis-attack-py](https://github.com/aspyatkin/themis-attack-py)
+- [themis-attack-result](https://github.com/aspyatkin/themis-attack-result)
+- [themis-checker-server](https://github.com/aspyatkin/themis-checker-server)
+- [themis-checker-result](https://github.com/aspyatkin/themis-checker-result)
+- [themis-checker-py](https://github.com/aspyatkin/themis-checker-py)
 
 ## License
 MIT @ [Alexander Pyatkin](https://github.com/aspyatkin)
