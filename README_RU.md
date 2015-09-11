@@ -206,7 +206,7 @@ $ vagrant up
 Vagrant запустит виртуальную машину с Ubuntu Desktop. В этой виртуальной машине вы можете сдавать флаги несколькими способами. Обратитесь к [themis-attack-protocol](https://github.com/aspyatkin/themis-attack-protocol) и [themis-attack-py](https://github.com/aspyatkin/themis-attack-py) для получения дополнительной информации.
 
 ### Подсказки
-1. IP адрес основной машины должны быть прописана как `internal network` в `config.rb`.
+1. IP адрес основной машины должен быть прописан как `internal network` в `config.rb`.
 2. Для того, чтобы узнать флаги в системе, можно просматривать логи в `/var/themis/finals/logs/queue.log`.
 
 ## Смотрите также
